@@ -1,0 +1,28 @@
+{% extends 'base2.html' %}
+{% load staticfiles %}
+{% block header %}
+<header>
+<h2>Blended MOOC Admin Home</h2>
+</header>
+{% endblock %}
+{% block body_block %}
+<form role="form" method="post" action="/blendedadmin/" autocomplete="off">{% csrf_token %}
+		<p class="instructions">
+		<h3>Please select the report</h3><br><br>
+		</p>
+			{% if errors %}
+				<p style="color:red;"><h3 style="color:red;">{{ errors.0 }}</h3></p><br>
+			{% endif %}
+		<div class="group group-form group-form-requiredinformation">
+		<select name="report_name" value="{{ report_name }}" required aria-required="true">
+		<option value="select" selected="selected">-- select report --</option>
+			{% for i in report_name_list %}
+				<option value="{{ i }}">{{ i }}</option>
+			{% endfor %}
+		</select>
+		<br><br><br>
+		<input type='submit' name='submit' value='Submit'>
+		
+		</div>
+		</form>
+{% endblock %}

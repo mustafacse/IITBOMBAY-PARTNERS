@@ -1,0 +1,69 @@
+{% extends 'base2.html' %}
+{% load staticfiles %}
+{% block header %}
+<header>
+<h2>Blended MOOC Admin Home</h2>
+</header>
+{% endblock %}
+{% block body_block %}
+<link rel="stylesheet" href="{% static 'css/bootstrap.min.css' %}">
+  <script src="{% static 'js/jquery.min.js' %}"></script>
+  <script src="{% static 'js/bootstrap.min.js'%}"></script>
+  <style>
+	
+	table.data,table.data td,table.data th {
+	    border: 1px solid black;
+	    border-collapse: collapse;
+	    text-align: center;
+	}
+
+	table.data {
+	    width: 100%;
+	}
+	table.data tr:nth-child(odd) {
+	   background-color: #ccc;
+	}
+	table.data tr:hover {
+		  background-color: #ffff99;
+		}
+	table.data th {
+	    height: 35px;
+	    color: #F7691F
+	}
+	table.data tr {
+	    height: 28px;
+	}
+	table.head, td, th, tr {
+		border: 0px solid black;
+		border-collapse: collapse;		
+	}
+	table.head {
+	    width: 100%;
+	    background-color: ;
+	}
+</style>
+
+<h4><font color="#F7691F">{{report_name}}</h4><br><br>
+<table border="2" cellspacing="5" cellpadding="5" class="head">
+{% if report_name == "Registered users report" %}
+<tr>
+<td>Id</td>
+<td>Email</td>
+<td>Usertype id</td>
+<td>Status</td>
+<td>Last login</td>
+<td>Number of logins</td>
+</tr>
+{% for i in reports %}
+<tr>
+<td>{{i.id}}</td>
+<td>{{i.email}}</td>
+<td>{{i.usertypeid}}</td>
+<td>{{i.status}}</td>
+<td>{{i.last_login}}</td>
+<td>{{i.nooflogins}}</td>
+</tr>
+{% endfor %}
+{% endif %}
+</table>
+{% endblock %}
