@@ -19,8 +19,8 @@
 
     <tr><td>Total  Details:  {{totalrecords}} </td></tr>
 
- <tr><td>Valid Details: {{validcount}}</td></tr>
- <tr><td>Invalid Details: {{invalidcount}}</td></tr>
+ <tr><td>Valid Details: {{validcount}}</td><td><a href="/downloadcsv/1">Valid Students </a></td></tr>
+ <tr><td>Invalid Details: {{invalidcount}}</td><td> <a href="/downloadcsv/2">Invalid Students </a></td></tr>
 </table>
 {% endblock %}
 
@@ -66,9 +66,6 @@
 
 {% endblock %}
 {% block my_block %}
-<p> &nbsp &nbsp &nbsp   <a href="/downloadcsv/1">Valid Students </a></p>
-<p> &nbsp &nbsp &nbsp   <a href="/downloadcsv/2">Invalid Students </a></p> 
-
 {% endblock %}
 
 

@@ -235,7 +235,7 @@ def createcourseleveluser(courseid,instituteid,rcid,fname,lname,email,role,statu
 
 # create Personinformation entry
 def createpersoninformation(email,fname,lname,designation,instituteid):
-    print email,designation
+    
     person_obj=Personinformation(email=email,firstname = fname, instituteid=instituteid,lastname =lname,designation=Lookup.objects.get(category = 'Designation', description = designation).code,createdondate=datetime.now(),telephone1=0)
      
     person_obj.save()
@@ -254,7 +254,8 @@ def emailusers(filename):
         per_obj = Personinformation.objects.get(email=row['email'])
         fname = per_obj.firstname
         email = per_obj.email
-        link = ROOT_URL + mail_obj.name + '/%d' %per_obj.id
+        per_id=signer.sign(per_obj.id)
+        link = ROOT_URL + mail_obj.name + '/%s' %per_id
         message = mail_obj.message %(fname, link)  
         send_mail(mail_obj.subject, message , EMAIL_HOST_USER ,[email], fail_silently=False)  
         row['status']=SENDMAIL

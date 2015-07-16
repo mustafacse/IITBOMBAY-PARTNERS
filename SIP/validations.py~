@@ -19,7 +19,7 @@ from django.http import HttpResponse
 from IITBOMBAYX_PARTNERS.settings import *
 from fetch_student_info import *
 from django.core.signing import TimestampSigner, BadSignature, SignatureExpired
-signer = Signer(sep="",salt='')
+signer = Signer(sep="$",salt=')
 
 
 
@@ -213,6 +213,7 @@ def valid_stud_record(request,rollnum,user,email,courseid,currentfile,defaulttea
                   message = message + '\n'+getErrorContent("cancelled_enrollment")#check error code       
                   error_code=1
        except:
+           args={}
            args['message'] ="Student Does not exist"
            return render(request,'geterror.html',args)
     return [user_details[0],message]
@@ -298,6 +299,7 @@ def validatefileinfo(request,courseid,fname,teacher_id):
         #Record is complete in file.Check contents
              else:
                  result=valid_stud_record(request,rollnum,user,email,courseid,currentfile,default_teacher,courselevelobj)
+                 print result
                  message = message + result[1]
               #print "nbye das ",valid_stud_record(request,rollnum,user,email,courseid,currentfile,courselevelobj.id) ," message"
              if message != "" or status== ERROR:
