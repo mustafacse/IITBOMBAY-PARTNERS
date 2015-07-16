@@ -163,15 +163,17 @@
 
  
  <header class="global " aria-label="Global Navigation">
-    <nav>
-    <h1 class="logo">
-      <a href="https://iitbombayx.in/">
-        
-  <img src="{% static 'images/swayamlogo_header.png' %}" alt="Home Page" height="50">
-
-      </a>
-    </h1>
-{% block header_block %}
+<nav>
+     <h1 class="logo">
+          <a href="/"><img src="{% static 'images/swayamlogo_header.png' %}" alt="Home Page" height="50"></a>
+     </h1>
+     <ol class="left nav-global">
+          <li class="nav-global-04">
+          Information System for Blended MOOCs 
+         </li>
+     </ol>
+</nav>
+</header>
 <ol class="left nav-global authenticated">
 
 </ol>
@@ -187,7 +189,7 @@
 {% endblock %}
 
   </nav>
-</header>>
+</header>
 
 
 <section class="container">
@@ -260,102 +262,38 @@ margin:auto;
 }
 
 </style>
-
 <div class="wrapper wrapper-footer" style="width:auto;">
-  <footer>
-    <div class="colophon">
+ <footer style="width:90%;">
+    <div class="colophon" style="width:43%">
       <nav class="nav-colophon" style="margin-bottom:20px;">
-      <ol>
-          <li class="nav-colophon-01">
-          <a id="about" href="https://www.iitbombayx.in/about">
-              About
-          </a>
+   <ol>
+          <li class="nav-colophon-01">         
+ <a href="https://www.iitbombayx.in/" target=_blank>
+<img border="0"  src="https://www.iitbombayx.in/static/themes/iitbombayx-theme/images/swayamlogo_footer.d0b4c54d012f.png" style="width:100px; height:60px;" alt="IITBombayX Logo">
+</a>
           </li>
-	  <!-- Bharat MOOCs -->
-          <li class="nav-colophon-02" style="color:#565656;">
-          <a id="news" href="http://news.iitbombayx.in/" target="_blank">
-              News
-          </a>
-          </li>
-          <li class="nav-colophon-03" style="color:#565656;">
-          <a id="blog" href="http://blogs.iitbombayx.in/" target="_blank">
-              Blog
-          </a>
-          </li>
-          <li class="nav-colophon-04" style="color:#565656;">
-          <a id="faq" href="https://www.iitbombayx.in/faq">
-              FAQ
-          </a>
-          </li>
-          <li class="nav-colophon-05" style="color:#565656;">
-          <a id="contact" href="https://www.iitbombayx.in/contact">
-              Contact Us
-          </a>
-          </li>
-      </ol>
-      </nav>
-
-      <div class="colophon-about">
-<!-- Bharat MOOCs-->
-        <img src="CS101.1x%20Course%20Info%20_%20IITBombayX_files/swayamlogo_footer.png" style="width:auto; height:auto;" alt="IITBombayX Logo">
-
-        <p style="text-align:justify; color:#565656;">IITBombayX offers 
-interactive online classes and MOOCs. Subjects from multiple disciplines
- are presently offered, as can be seen in the list of courses. This list
- will expand later. IITBombayX is a non-profit online platform created 
-with funding from National Mission on Education through Information and 
-Communication Technology (NME-ICT), Ministry of Human Resource 
-Development (MHRD), Government of India (GoI).</p> 
-      </div>
-    </div>
-
-    <div class="references">
-      <nav class="nav-social">
-        <ul>
-          <li class="nav-social-02">
-            <a href="https://www.facebook.com/iitbombayx" target="_blank" rel="external">
-              <img src="CS101.1x%20Course%20Info%20_%20IITBombayX_files/ico-social-facebook.png" alt="edX on Facebook">
-            </a>
-          </li>
-          <li class="nav-social-03">
-            <a href="https://twitter.com/iitbombayx" target="_blank" rel="external">
-              <img src="CS101.1x%20Course%20Info%20_%20IITBombayX_files/ico-social-twitter.png" alt="edX on Twitter">
-            </a>
-          </li>
-          <li class="nav-social-04">
-            <a href="https://plus.google.com/u/0/113536343441190768869" target="_blank" rel="external">
-              <img src="CS101.1x%20Course%20Info%20_%20IITBombayX_files/ico-social-google.png" alt="edX on Google+">
-            </a>
-          </li>
-          <!--li class="nav-social-05">
-            <a href="#"  target="_blank" rel="external">
-              <img src="/static/images/social/ico-social-youtube.909f05910c79.png" alt="edX on YouTube" />
-            </a>
-          </li-->
-        </ul>
-      </nav>
-
-      <!--p class="copyright" style="text-align:right; color:#050505; margin-bottom:11px;">&copy; 2014 IITBombayX, except where noted, all rights reserved</p-->
-
-      <nav class="nav-legal">
-        <ul style="display:block;float:right;text-align:right;">
-          <li class="nav-legal-01" style="display:block;">
-		<style>.wrapper-footer footer .references .nav-legal .nav-legal-01 a:after {content:none;}</style>
-            <a style="display: inline-block;" href="https://www.iitbombayx.in/tos" target="_blank">Terms of Service and Honour Code</a>
-          </li>
-          <li class="nav-legal-02" style="display:block;">
-            <a style="display: inline-block;" target="_blank" href="https://www.iitbombayx.in/privacy">Privacy Policy</a>
-          </li>
-          <li class="nav-legal-03" style="display:block; float:right;">	
-		 <style>.wrapper-footer footer .references .nav-legal .nav-legal-03 a:hover{border-bottom:0px;}</style> 
-            <a style="display: inline-block; " href="http://openedx.org/" target="_blank"><img src="CS101.1x%20Course%20Info%20_%20IITBombayX_files/edx-openedx-logo-tag.png" style="padding-top:2.5em; float:right; width:150px; height:50px;" alt="Powered by Open edX"></a>
-
-          </li>
-        </ul>
-      </nav>
-    </div>
-  </footer>
+<li class="nav-colophon-01">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; </li>
+<li class="nav-colophon-01"><br> 
+<a href="http://www.it.iitb.ac.in/moodle/"><img border="0"  src="https://moodle.org/theme/image.php/moodleorgcleaned_moodleorg/theme_moodleorgcleaned/1436262404/moodle-logo" style="width:100px; height:34px;" alt="DBP's Moodle">
+</a>
+</li>
+<li class="nav-colophon-01">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; </li>
+<li class="nav-colophon-01"><br> <br>
+<a href="http://www.it.iitb.ac.in/nmeict/home.html">T10KT-IITB NMEICT</a>
+</li> 
+<li class="nav-colophon-01">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; </li>
+<!--
+  <li class="nav-colophon-01">
+ <a href="https://www.iitb.ac.in/" target=_blank>
+<img border="0"  src="http://www.iitb.ac.in/sites/all/themes/touchm/logo.png" style="width:30px; height:50px;" alt="IIT Bombay">
+</a>
+          </li>-->
+</nav>
 </div>
+<div class="references" style="width:50%;font-size:80%;"><p align=justify>The IITBombayX Blended MOOCs system combines the benefits of MOOCs on IITBombayX with the conventional teaching-learning process at the various partnering institutes. This system envisages the factoring of MOOCs marks in the grade computed for a student of that subject, in a regular degree program.
+</p></div>
+  </footer>
+          </div>
 
 
   </b></div><b>

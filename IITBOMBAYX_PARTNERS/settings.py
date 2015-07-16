@@ -50,13 +50,13 @@ STATICFILES_FINDERS = (
 #)
 
 EMAIL_BACKEND = "django.core.mail.backends.console.EmailBackend"
-EMAIL_HOST = 'localhost'
+EMAIL_HOST = ''
 EMAIL_HOST_USER = ''
-EMAIL_HOST_PASSWORD = ''
+EMAIL_HOST_PASSWORD = '
 EMAIL_PORT = 25
 EMAIL_USE_TLS = True
 
-ROOT_URL = 'localhost'
+ROOT_URL = 'http://127.0.0.1:9000/'
 # Quick-start development settings - unsuitable for production
 # See https://docs.djangoproject.com/en/1.8/howto/deployment/checklist/
 
@@ -119,9 +119,9 @@ WSGI_APPLICATION = 'IITBOMBAYX_PARTNERS.wsgi.application'
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.mysql', 
-        'NAME': 'djangoblendedmooc',
-        'USER': 'root',
-        'PASSWORD': 'root',
+        'NAME': '',
+        'USER': '',
+        'PASSWORD': '',
         'HOST': 'localhost',   # Or an IP Address that your DB is hosted on
         'PORT': '3306',
     }

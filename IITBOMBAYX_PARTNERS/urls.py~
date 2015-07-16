@@ -22,11 +22,14 @@ urlpatterns = [
     url(r'^logout/$', 'SIP.views.logout'),
      # If user is not login it will redirect to login page
     url(r'^forgot_pass/$', 'SIP.views.forgot_pass'),
-    url(r'^resetpass/(?P<emailid>[0-9]+)$', 'SIP.views.resetpass'),
+   # url(r'^resetpass/(?P<emailid>[0-9]+)$', 'SIP.views.resetpass'),
     url(r'^createpass/(?P<emailid>[0-9]+)$', 'SIP.views.createpass'),
     #url(r'^login_success/$','SIP.views.login_success'),
     url(r'^changepass/$','SIP.views.change_pass'),
     url(r'^homepage', 'SIP.views.home'),
+        ################encryp reset password link t#######################
+   url(r'^resetpass/(?P<token>[\w.#\-_=]+)/$',
+     'SIP.views.resetpass'),
    
 
 
