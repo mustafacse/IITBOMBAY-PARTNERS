@@ -1,34 +1,38 @@
-{% extends 'student/mybase.html' %}
+{% extends 'base2.html' %}
 {% load staticfiles %}
-{% block body_block %}
+
 
 
 <head>
 
-  <title>Upload Report</title>
+  <title>Students Information Report</title>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <link rel="stylesheet" href="{% static 'css/bootstrap.min.css' %}">
-  <script src="{% static 'js/jquery.min.js' %}"></script>
-  <script src="{% static 'js/bootstrap.min.js'%}"></script>
+<!--   <link rel="stylesheet" href="{% static 'css/bootstrap.min.css' %}">
+ <script src="{% static 'js/jquery.min.js' %}"></script>
+  <script src="{% static 'js/bootstrap.min.js'%}"></script>-->
 </head>
 <body>
+{% block header %}
+<header><h2>{{fname}} Status Report  ({{coursename}})   </h2></header>
+<table class="table table-hover">
 
-<!--<h2><center>Upload Report</center></h2>
-{% if errorreport %}
+    <tr><td>Total  Details:  {{totalrecords}} </td></tr>
 
+ <tr><td>Valid Details: {{validcount}}</td></tr>
+ <tr><td>Invalid Details: {{invalidcount}}</td></tr>
+</table>
+{% endblock %}
 
-    
-  <h4> Course Name: </h4>
-  <h4> Teacher Name: </h4>
-<p>Status of {{filename}} file</p>
-<p>Total records = {{totalrecords}}</p>
-<p> Valid Records = {{validcount}}  </p>
-<p> Invalid Records = {{invalidcount}} </p> -->
+{% block body_block %}
+
+  
+
 <div class="container">
 <div class="table-responsive">
-  	
+  
   <table  class="table table-striped" >
+    {% if errorreport %}	
     <thead>
       <tr>
         <th class="col-sm-2">Record No</th>
@@ -39,6 +43,7 @@
 
       </tr>
     </thead>
+
     <tbody>
         {% for error  in errorreport %}
           <tr>
@@ -46,16 +51,19 @@
             <td>{{error.roll_no}}</td>
             <td>{{error.username}}</td>
             <td>{{error.email}}</td>
-            <td>{{error.error_message}}</td>
+            <td >{{error.error_message}}</td>
             
           </tr>
         {% endfor %}
     </tbody>
+{% else %}
+<tr align="center"> No Error Records</tr>
+{% endif %}
   </table>
 </div>
 </div>
 
-{% endif %}
+
 {% endblock %}
 {% block my_block %}
 <p> &nbsp &nbsp &nbsp   <a href="/downloadcsv/1">Valid Students </a></p>
@@ -63,13 +71,6 @@
 
 {% endblock %}
 
-{% block data_block %}
-<h2><center><b>UPLOAD REPORT</b></center></h2><br>
-  
- <h5>Total Students:  {{totalrecords}}  for {{coursename}}</h5>
- <h5>Valid Records = {{validcount}}</h5>
- <h5>Invalid Records = {{invalidcount}}</h5></pre>
-{% endblock %}
 
 
 

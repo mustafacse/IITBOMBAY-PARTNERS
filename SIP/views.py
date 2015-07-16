@@ -259,10 +259,13 @@ def loginn(request):
              return HttpResponseRedirect("/bmchome")
         elif (loginlist == 3):
              return HttpResponseRedirect("/courseadminhome/")
+        elif (loginlist == 4):
+            error_message=retrieve_error_message(module,page,'LN_INV')##required to create error content message           
+            args['error_message']=error_message
+            return render_to_response('login/tologin.html',args)              
+
         else:
-            error_message=retrieve_error_message(module,page,'LN_INV')
-            args = {}
-            args.update(csrf(request))
+            error_message=retrieve_error_message(module,page,'LN_INV')            
             args['error_message']=error_message
             return render_to_response('login/tologin.html',args)            
     return render_to_response('login/tologin.html',args)
@@ -518,17 +521,16 @@ def studentdetails(request,courseid,pid):
 
 
 def downloadcsv(request,course,id):
-    personid = 0
-    if int(id) == 0:
-        personid = request.session['person_id']
-    else:
-        personid = int(id)
+    
     response = HttpResponse(content_type='text/csv')
     response['Content-Disposition'] = 'attachment; filename="student_details"'+str(personid)+'.csv'
     context=RequestContext(request)
     writer = csv.writer(response)
     writer.writerow(["Roll_No", "Username","Email-ID"])
-    csvdata = studentDetails.objects.filter(teacherid_id = personid,courseid__courseid = course)
+    if id==1:
+         csvdata = studentDetails.objects.filter(teacherid_id = personid,courseid__courseid = course,error_message="")
+    else:
+         csvdata = studentDetails.objects.filter(teacherid_id = personid,courseid__courseid = course).exclude(error_message="")
     for row in csvdata:
         writer.writerow([row.roll_no,row.userid.username,row.userid.email])
     return response
@@ -577,13 +579,14 @@ def upload(request,code,courseid):
             a = form.save()
             for p in uploadedfiles.objects.raw('SELECT * FROM SIP_uploadedfiles where uploadedby_id = 1 ORDER BY id DESC LIMIT 1 '):
                     changedfname = str(p.filename)
-            
+            args['fname']=fname
             uploadedfiles.objects.filter(filename = fname).update(uploadedby = teacher_id)
             extension = validate_file_extension(fname)
             if(extension):
                 if code == "2":
                     context = validatefileinfo(request,courseid,changedfname,teacher_id)
                     context.update(args)
+                    print context
                     return render(request, 'student/uploaded.html', context)
             else:
                 message = " !!! Please Upload .csv File!!!"
@@ -614,25 +617,27 @@ def output_csv(request,code):
     courseid=request.session['courseid']
 #---------------------
     if(code=="1"):
+        print "code1"
         downloadfile = "%s_%s_%s_%s" % ("report","valid",courseid,timestr)#1
         downloadfile=downloadfile+".csv"
         response['Content-Disposition'] = 'attachment; filename="%s"'%(downloadfile)
         
-        #print filename
+        print fname
         writer = csv.writer(response)
         #csvdata = student_interface.objects.filter(errorcode__errorcode = "noerror",fileid__filename = fname) 
-        csvdata = student_interface.objects.filter(error_message = "SUCCESS",fileid__filename = fname) 
+        csvdata = student_interface.objects.filter(error_message = "",fileid__filename = fname) 
         #csvdata = Errorincsv.objects.all()        
         writer.writerow(["Record No","Roll No", "Username","Email-ID"])
         for row in csvdata:
             writer.writerow([row.recordno,row.roll_no, row.username, row.email])
 #---------------------
     elif(code=="2"):
+        print "code2"
         downloadfile = "%s_%s_%s_%s" % ("report","invalid",courseid,timestr)#1
         downloadfile=downloadfile+".csv"
         response['Content-Disposition'] = 'attachment; filename="%s"'%(downloadfile)
         print code
-        #print filename
+        print fname
         writer = csv.writer(response)
         csvdata = student_interface.objects.filter(~Q(error_message = "SUCCESS"),fileid__filename = fname)  
         #csvdata = Errorincsv.objects.all()        
