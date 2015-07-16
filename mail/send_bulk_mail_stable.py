@@ -9,7 +9,7 @@ SCRIPT_ABS_PATH = os.path.abspath(SCRIPT_DIR_PARENT)
 project_dir=SCRIPT_ABS_PATH
 
 debug_mode=1
-default_password="Welcome123"
+default_password=""
 member=1
 VALID ="Valid"
 INVALID="Invalid"
