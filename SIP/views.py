@@ -289,7 +289,7 @@ def forgot_pass(request):
                args['message'] ="Email cannot send at this moment. "
                return render(request,'geterror.html',args)
            #print ec_id
-            send_email(ec_id, per_id, per_id)
+            send_email(request,ec_id, per_id, per_id)
             return render_to_response('login/forgot_pass.html',args)      
                            
         else:
@@ -335,7 +335,7 @@ def resetpass(request,token):
             user.save()
             args['message']= retrieve_error_message(module,page,'PWD_SET')
             ec_id = EmailContent.objects.get(systype='Login', name='success').id
-            send_email(ec_id, per_id, per_id)
+            send_email(request,ec_id, per_id, per_id)
             return render_to_response('login/change_pwdsuccess.html',args)            
   
     return render_to_response('login/resetpass.html',args)
@@ -379,7 +379,7 @@ def createpass(request,personid):
 		        user_info.save()
 		        args['message']= retrieve_error_message(module,page,'PWD_SET')
 		        ec_id = EmailContent.objects.get(systype='Login', name='success').id
-		        send_email(ec_id, per_id, per_id)
+		        send_email(request,ec_id, per_id, per_id)
 		        return render_to_response('login/create_pwdsuccess.html',args)            
 	  
 		  #return render_to_response('login/createpass.html',args)
@@ -732,7 +732,7 @@ def change_pass(request):
                      
 				        args['message']= retrieve_error_message(module,page,'PWD_SET')
 				        ec_id = EmailContent.objects.get(systype='Login', name='success').id
-				        send_email(ec_id, per_id, per_id)
+				        send_email(request,ec_id, per_id, per_id)
                         
 				        del request.session['person_id']
 				        del request.session['email_id']

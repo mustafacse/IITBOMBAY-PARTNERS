@@ -326,7 +326,7 @@ def validatefileinfo(request,courseid,fname,teacher_id):
 
 
 ############################## Send mail by fetching content of mail from EmailContent table ###################################
-def send_email(ec_id, req_id, per_id):
+def send_email(request,ec_id, req_id, per_id):
     try:
 	    ec_id = int(ec_id)
 	    req_id = int(req_id)  
