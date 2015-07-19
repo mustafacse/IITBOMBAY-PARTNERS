@@ -205,7 +205,7 @@ def sessiondata(request):
     args['rolename']=request.session['rolename']
     args['rcid']=request.session['rcid']  
     args['courseid']= request.session['courseid']
-    args['course']=edxcourses.objects.get(courseid=request.session['courseid']).course
+    
     args['edxcourseid']=request.session['edxcourseid']
     return args             
 
@@ -466,7 +466,7 @@ def teacherlist(request,courseid):
 
         args['teacherlist'] = teacherlist
         args['courseid']=request.session['courseid'] = courseid
-       
+        args['course']=edxcourses.objects.get(courseid=courseid).course
         return render_to_response("student/teacher.html",args, context_instance=RequestContext(request))
 
 
