@@ -18,8 +18,31 @@ from globalss import *
 from django.http import HttpResponse
 from IITBOMBAYX_PARTNERS.settings import *
 from fetch_student_info import *
+from django.db.models import Q
 from django.core.signing import TimestampSigner, BadSignature, SignatureExpired
 signer = Signer(sep="$",salt='as12')
+
+###########################################
+
+def validate_auth_user(email,user):
+    
+    userlogin_obj=iitbx_auth_user.objects.filter(Q(email=email) | Q(username=user))
+# For correct email address verify username
+
+    for row in userlogin_obj:
+       uid=row.edxuserid
+       username=row.username
+       emailid=row.email
+       
+       if( username == user) and (emailid==email):
+    	  return [int(uid),email,username,1,'01-01-2005']
+       elif  ( username != user) and (emailid==email):
+    	  return [-1,email,"",1,'01-01-2005']
+       elif  ( username == user) and (emailid !=email):
+    	  return [-1,"",username,1,'01-01-2005']
+    return [-1 ,"","",-1,-1]
+
+
 
 
 
@@ -59,7 +82,7 @@ def validate_login(request):
         userdetail = User.objects.get(username=request.POST['email'])
         user_info=Userlogin.objects.get(user=userdetail)
         if user_info.usertypeid == 0:
-           print "hello"
+           
            request.session['email_id'] =userdetail.email
            pson=Personinformation.objects.get(email=userdetail.email)
            request.session['person_id']=pson.id
@@ -168,15 +191,14 @@ def valid_stud_record(request,rollnum,user,email,courseid,currentfile,defaulttea
 
     message=""
     error_code=0
-    
-    user_details= validate_auth_user(email,user)
+    user_details= validate_auth_user(email.lower(),user)
     
     if user_details[1] == "" and user_details[2] == "" :  
         message = getErrorContent("not_registered")   
         error_code=1
 
     else:
-         if user_details[1] != email:             
+         if user_details[1] != email.lower():             
              message = getErrorContent("invalidemail")
              error_code=1
 
@@ -299,7 +321,7 @@ def validatefileinfo(request,courseid,fname,teacher_id):
         #Record is complete in file.Check contents
              else:
                  result=valid_stud_record(request,rollnum,user,email,courseid,currentfile,default_teacher,courselevelobj)
-                 print result
+                
                  message = message + result[1]
               #print "nbye das ",valid_stud_record(request,rollnum,user,email,courseid,currentfile,courselevelobj.id) ," message"
              if message != "" or status== ERROR:
@@ -414,7 +436,7 @@ def send_email(request,ec_id, req_id, per_id):
 	    elif ec_id == 19: #Email to inviter that his invite has been declined by invitee
 		cname = edxcourses.objects.filter(id = req_obj[0].courseid_id)
 		cname= cname[0].coursename 
-		print per_id , "per_id"
+		
 		hname = Personinformation.objects.get(id = per_id).firstname
 	#	hname = per_id.objects.get(id = per_id)
 		message = mail_obj[0].message %(hname, role,cname, fname)    

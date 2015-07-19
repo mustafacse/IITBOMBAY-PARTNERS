@@ -23,41 +23,6 @@ def init(usr,password,host_name,database):
 #                   if incorrect then check username, if exist return the information that email is empty. 
 #                                                     if username doesnot exist return error list.
 
-def validate_auth_user(email,user):
-     db=init("root","root","localhost","edxapp")
-     auth_user_csr=db.cursor()
-     mysql_csr_dup=db.cursor()
-     query="select id,username,is_active,date_joined from auth_user where email ='%s'"%(email)
-     auth_user_csr.execute(query)
-
-     #print "querydata",auth_user_csr.fetchall()
-     # For correct email address verify username
-
-     for row in auth_user_csr.fetchall():
-       uid=row[0]
-       username=row[1]
-       is_active=row[2]
-       date_joined=row[3]
-       if( username == user):
-          return [int(uid),email,username,is_active,date_joined]
-
-       else:
-          return [int(uid),email,"",is_active,date_joined]  
-
-     # When email is incorrect, verify with username
-     query="select id,username,is_active,date_joined from auth_user where username ='%s'"%(user)
-
-     mysql_csr_dup.execute(query)
-     for row in mysql_csr_dup.fetchall():
-
-          uid=row[0]
-          username=row[1]
-          is_active=row[2]
-          date_joined=row[3]
-          return [int(uid),"",username,is_active,date_joined]   
-
-     return [-1 ,"","",-1,-1]   
-
 # Validates student course enrollment information received from teacher in iitbombayx
 
 def validate_course_enrollment(email,course_id):
