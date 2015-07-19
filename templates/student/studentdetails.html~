@@ -13,7 +13,7 @@
 {% endif %}
 <!--<td align = "left"><button onclick="location.href='/addstudent/{{id}}/'" value = 'AddStudent'>Add Student</button>-->
 </td>
-<td align = "right"><a href = '/downloadcsv1/{{courseid}}/{{id}}/'>Download</a></td></tr>
+<td align = "right"><a href = '/downloadcsv1/{{courseid}}/{{personid}}/'>Download</a></td></tr>
 
 </table>
 <br><br>

@@ -19,7 +19,7 @@ from django.http import HttpResponse
 from IITBOMBAYX_PARTNERS.settings import *
 from fetch_student_info import *
 from django.core.signing import TimestampSigner, BadSignature, SignatureExpired
-signer = Signer(sep="",salt=')
+signer = Signer(sep="",salt='')
 
 
 

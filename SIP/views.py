@@ -464,7 +464,7 @@ def teacherlist(request,courseid):
                 args['coursename'] = user.courseid.coursename
 
         args['teacherlist'] = teacherlist
-        args['courseid'] = courseid
+        args['courseid']=request.session['courseid'] = courseid
        
         return render_to_response("student/teacher.html",args, context_instance=RequestContext(request))
 
