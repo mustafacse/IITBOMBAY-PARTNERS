@@ -23,7 +23,7 @@
       </hgroup>
 
          
-      <a href="/upload/2/{{course.courseid}}" class="enter-course">Upload Students Info</a><br><br><br><br>
+      <a href="/upload/2/{{course.courseid}}" class="enter-course">Upload Students' Info</a><br><br><br><br>
       <a href="/studentdetails/{{course.courseid}}/{{pid}}/" class="enter-course">Student Details</a><br><br><br><br>
      <!-- <a href="/report/view/ {{course.courseid}}/" class="enter-course">View  Report</a>-->
             

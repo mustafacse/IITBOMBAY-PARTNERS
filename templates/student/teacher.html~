@@ -1,6 +1,6 @@
 {% extends 'base2.html' %}
 {% block header %}
-<h2>Teacher List - <font color=#F7691F> {{course}}<font></h2>
+<h2>Teacher List - -<font color=#F7691F> {{course}}<font></h2>
 {% endblock %}
 
 {% block body_block %}
