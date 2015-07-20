@@ -56,7 +56,7 @@ def get_multi_roles(request):
     try:
        person=Personinformation.objects.get(email=request.session['email_id'])
     except:
-          args['message'] ="unique person for logged in  user does not exit"
+          args['error_message'] ="unique person for logged in  user does not exit"
           return render(request,'geterror.html',args)
     
 
@@ -193,7 +193,7 @@ def sessiondata(request):
        args['institute']=institute=T10KT_Institute.objects.get(instituteid=request.session['institute_id'])
        args['person']=person
     except:
-          args['message'] ="Cannot fetch unique person or institute for this logged-in session "
+          args['error_message'] ="Cannot fetch unique person or institute for this logged-in session "
           return render(request,'geterror.html',args)
     
     args['institutename']=institute.institutename
@@ -206,6 +206,7 @@ def sessiondata(request):
     args['courseid']= request.session['courseid']
     
     args['edxcourseid']=request.session['edxcourseid']
+    args['rooturl']=ROOT_URL
     return args             
 
 
@@ -286,7 +287,7 @@ def forgot_pass(request):
             try:
                ec_id = EmailContent.objects.get(systype='Login', name='resetpass').id
             except:
-               args['message'] ="Email cannot send at this moment. "
+               args['error_message'] ="Email cannot send at this moment. "
                return render(request,'geterror.html',args)
            #print ec_id
             send_email(request,ec_id, per_id, per_id)
@@ -329,7 +330,7 @@ def resetpass(request,token):
                 userid=Personinformation.objects.get(id=emailid)           
                 user = User.objects.get(email=userid.email)
             except:
-               args['message'] ="unique person for the user does not exist"
+               args['error_message'] ="unique person for the user does not exist"
                return render(request,'geterror.html',args)
             user.set_password(password1)
             user.save()
@@ -359,7 +360,7 @@ def createpasslink(request):
                ec_id = EmailContent.objects.get(systype = 'Login', name = 'createpass').id
                mail_obj = EmailContent.objects.get(id=ec_id)
             except:
-               args['message'] ="Email cannot send at this moment. "
+               args['error_message'] ="Email cannot send at this moment. "
                return render(request,'geterror.html',args)
            #print ec_id
             per_obj = Personinformation.objects.get(email=email)
@@ -422,7 +423,7 @@ def createpass(request,personid):
        return  render_to_response('login/alreadycreated.html',args)
 
     except:
-           args['message'] ="person  does not exist"
+           args['error_message'] ="person  does not exist"
            return render(request,'geterror.html',args)
 
 
@@ -476,7 +477,7 @@ def ccourse(request):
        for index in enrolled_courses:
 		  edx_enrolled_courses.append(edxcourses.objects.get(courseid=index.courseid.courseid))
     except:
-           args['message'] ="cannot get unique entry for course"
+           args['error_message'] ="cannot get unique entry for course"
            return render(request,'geterror.html',args)
 
     input_list['courselist'] = edx_enrolled_courses
@@ -531,14 +532,14 @@ def studentdetails(request,courseid,pid):
        args['coursename']=courseobj.coursename
        args['course']=courseobj.course
     except:
-           args['message'] ="cannot get entry for course"
+           args['error_message'] ="cannot get entry for course"
            return render(request,'geterror.html',args)
     args['personid']=request.session['person_id']
 
     try:
         courselevelid=Courselevelusers.objects.get(personid__id=pid,courseid__courseid=courseid,startdate__lte=current,enddate__gte=current)
     except:
-           args['message'] ="You are not valid Teacher for this course"
+           args['error_message'] ="You are not valid Teacher for this course"
            return render(request,'geterror.html',args)
     students = studentDetails.objects.filter(teacherid__id=courselevelid.id,courseid=courseid)
     data=[]    
@@ -620,8 +621,8 @@ def upload(request,code,courseid):
    args.update(csrf(request))
    person=Personinformation.objects.get(email=request.session['email_id'])   
    args['coursename']=edxcourses.objects.get(courseid=courseid).course
-  
-   if request.POST:
+   try:
+     if request.POST:
         form = UploadForms(request.POST, request.FILES)
         teacher_id = request.session['person_id'] 
         fname=request.FILES['filename'].name        
@@ -649,8 +650,12 @@ def upload(request,code,courseid):
                 args['message'] = message
                 return render_to_response('student/upload.html', args)
            
-   else:
-        form = UploadForms()  
+     else:
+        form = UploadForms() 
+   except:
+           args['error_message'] ="Please upload  a csv file"
+           return render(request,'geterror.html',args)
+           
      
    args['form'] = form
    args['courseid']=courseid
@@ -723,7 +728,7 @@ def unenrollstudent(request,pid,courseid,t_id):
 	try:
 	    user = iitbx_auth_user.objects.get(edxuserid = pid)
 	except:
-           args['message'] ="user is not part of IITBombayX"
+           args['error_message'] ="user is not part of IITBombayX"
            return render(request,'geterror.html',args)
 
 	return HttpResponseRedirect('/studentdetails/'+courseid+"/"+t_id)

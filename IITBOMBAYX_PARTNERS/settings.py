@@ -55,9 +55,9 @@ EMAIL_HOST_USER = ''
 EMAIL_HOST_PASSWORD = ''
 EMAIL_PORT = 25
 EMAIL_USE_TLS = False
-DEFAULT_FROM_EMAIL="tushars@cse.iitb.ac.in" 
+DEFAULT_FROM_EMAIL="eoutreach@it.iitb.ac.in" 
 
-ROOT_URL = 'http://127.0.0.1:9000/'
+ROOT_URL = 'http://127.0.0.1:8000/'
 # Quick-start development settings - unsuitable for production
 # See https://docs.djangoproject.com/en/1.8/howto/deployment/checklist/
 

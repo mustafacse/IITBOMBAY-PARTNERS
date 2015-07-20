@@ -206,7 +206,7 @@ def createsingleuser(row):
    singleuser=User.objects.create_user(username=row.email,email=row.email,password=default_password)
    singleuser.is_active=True  
    singleuser.save()   
-   userprofile=Userlogin(user=singleuser)
+   userprofile=Userlogin(user=singleuser,status=0)
    userprofile.save()
 
    person_obj=createpersoninformation(row.email,row.fname,row.lname,row.designation,row.instituteid)
