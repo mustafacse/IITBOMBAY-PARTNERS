@@ -9,7 +9,7 @@ urlpatterns = [
     url(r'^teacher/$','SIP.views.teacherhome'),
     url(r'^studentdetails/(?P<courseid>[\w{}\.\-\/]{1,40})/(?P<pid>[0-9]+)/$','SIP.views.studentdetails',name='studentdetails'),
 	url(r'^updatestudent/(?P<pid>[0-9]+)/(?P<courseid>[\w{}\.\-\/]{1,40})/(?P<t_id>[0-9]+)/$','SIP.views.Update'),
-    
+    url(r'^movestudents$','SIP.views.movestudents'),
     url(r'^downloadcsv1/(?P<course>[\w{}\.\-\/]{1,40})/(?P<id>[0-9]+)/$','SIP.views.downloadcsv',name='downloadcsv'),
     url(r'^upload/(?P<code>[0-9])/(?P<courseid>[\w{}\.\-\/]{1,40})/$', 'SIP.views.upload'),
     #url(r'^upload/uploaded/', 'SIP.views.uploaded'),
