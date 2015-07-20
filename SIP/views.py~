@@ -352,7 +352,7 @@ def createpasslink(request):
     if request.method == 'POST':        
         email = request.POST['email']
         per_id= validate_email(email)
-## If valid email id, then a mail is sent to his email alongwith a link to create his password 
+## If valid email id, then a mail is sent to his email alongwith a link to reset his password 
         if per_id != -1:     
             args['message']= retrieve_error_message(module,page,'NO_ERR')
             try:
