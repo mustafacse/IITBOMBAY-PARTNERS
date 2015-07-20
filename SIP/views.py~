@@ -785,7 +785,8 @@ def blendedadmin(request,report_id):
           query=report_obj.sqlquery
           print query
           reports=Userlogin.objects.raw(query)
-       
+          for i in reports:
+               print i.Full_Name,"heee"
           print reports
           input_list['reports']=reports
           return render(request,display_report_,input_list)
