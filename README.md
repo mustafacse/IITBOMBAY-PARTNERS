@@ -1,5 +1,4 @@
-# IITBOMBAYX_PARTNERS
-Information system Blended mooc
+
 
 Admin Report Module
 ===================
